@@ -5,9 +5,8 @@ Created on Jan 15, 2011
 '''
 
 from setuptools import setup, find_packages
-from Albatross import __version__ as package_version
 
-__version__ = package_version
+__version__ = '0.1'
 
 setup(
     name="Cherrypy-MongoDB",
