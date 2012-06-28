@@ -4,14 +4,14 @@ Created on Jan 15, 2011
 @author: vahid
 '''
 
-from setuptools import setup, find_packages
-
-__version__ = '0.1'
+from setuptools import setup
+from mongodb_tool import __version__ as module_version
+__version__ = module_version
 
 setup(
     name="Cherrypy-MongoDB",
     version=__version__,
-    packages=find_packages(),
+    py_modules=['mongodb_tool'],
     install_requires=['pymongo>=2.2'],
     include_package_data=True,
     exclude_package_data={

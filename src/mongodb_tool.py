@@ -4,12 +4,10 @@ import pymongo
 
 CP_REQUEST_ATTR_NAME = "_mongodb"
 
+__version__ = '0.2'
 
-def _attach_mongodb_loader(dbname, host=None, port=27017, max_pool_size=10, network_timeout=None,
-                   tz_aware=False, property_name='mongodb'):
-    def _get_mongodb(request):
-        if not hasattr(request, CP_REQUEST_ATTR_NAME) or not getattr(request, CP_REQUEST_ATTR_NAME):
-            connection = pymongo.Connection(
+def get_connection(host='localhost', port=27017, max_pool_size=10, network_timeout=None,tz_aware=False):
+    return pymongo.Connection(
                 host=host,
                 port=port,
                 max_pool_size=max_pool_size,
@@ -17,8 +15,17 @@ def _attach_mongodb_loader(dbname, host=None, port=27017, max_pool_size=10, netw
                 document_class=dict,
                 tz_aware=tz_aware,
                 _connect=False)
-            
-            db = getattr(connection, dbname)
+
+def get_db(dbname,connection=None,**kwargs):
+    if not connection:
+        connection = get_connection(**kwargs)
+    return getattr(connection, dbname)
+
+def _attach_mongodb_loader(dbname=None, property_name='mongodb',**kwargs):
+    def _get_mongodb(request):
+        if not hasattr(request, CP_REQUEST_ATTR_NAME) or not getattr(request, CP_REQUEST_ATTR_NAME):
+            connection = get_connection(**kwargs) 
+            db = get_db(dbname,connection=connection)
             setattr(request, CP_REQUEST_ATTR_NAME, db)
         return getattr(request, CP_REQUEST_ATTR_NAME)
     setattr(cherrypy.request.__class__, property_name, property(_get_mongodb))
