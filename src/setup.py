@@ -15,7 +15,7 @@ with open(os.path.join(os.path.dirname(__file__),'mongodb_tool.py')) as v_file:
 
 
 setup(
-    name="Cherrypy-MongoDB",
+    name="CherrypyMongoDB",
     version=module_version,
     py_modules=['mongodb_tool'],
     install_requires=['pymongo>=2.2'],
@@ -30,5 +30,12 @@ setup(
     url="https://github.com/pylover/cherrypy-mongodb",
     long_description="MongoDb Tool For Cherrypy",
     classifiers=[
-        "Development Status :: 0.0.5 - Pre Alpha"],
+        "Development Status :: 5 - Production/Stable",
+        "License :: Freeware",
+        'Intended Audience :: Developers',
+        'Operating System :: OS Independent',
+        'Programming Language :: Python :: 2.6',
+        'Programming Language :: Python :: 2.7',
+        'Topic :: Software Development :: Libraries'
+        ],
 )
