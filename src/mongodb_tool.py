@@ -4,7 +4,7 @@ import pymongo
 
 CP_REQUEST_ATTR_NAME = "_mongodb"
 
-__version__ = '0.2'
+__version__ = '0.2.1'
 
 def get_connection(host='localhost', port=27017, max_pool_size=10, network_timeout=None,tz_aware=False):
     return pymongo.Connection(

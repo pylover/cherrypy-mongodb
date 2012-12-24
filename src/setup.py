@@ -5,12 +5,18 @@ Created on Jan 15, 2011
 '''
 
 from setuptools import setup
-from mongodb_tool import __version__ as module_version
-__version__ = module_version
+
+import os
+import re
+
+# reading package version (same way sqlalchemy does)
+with open(os.path.join(os.path.dirname(__file__),'mongodb_tool.py')) as v_file:
+    module_version = re.compile(r".*__version__ = '(.*?)'",re.S).match(v_file.read()).group(1)
+
 
 setup(
     name="Cherrypy-MongoDB",
-    version=__version__,
+    version=module_version,
     py_modules=['mongodb_tool'],
     install_requires=['pymongo>=2.2'],
     include_package_data=True,
